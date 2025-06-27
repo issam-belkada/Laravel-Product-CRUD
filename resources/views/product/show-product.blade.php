@@ -33,16 +33,32 @@
                 </div>
             </div>
             <div class="card-footer bg-white d-flex justify-content-between">
+
+
                 <a href="{{ route('edit-product', $product->id) }}" class="btn btn-outline-primary">Edit</a>
 
+
+                @if ($product->deleted_at)
+                    <form action="{{ route('destroy-product', $product->id) }}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to delete this product permanently?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">Destroy Product</button>
+                    </form>
+                @else
                 <form action="{{ route('delete-product', $product->id) }}" method="POST"
                     onsubmit="return confirm('Are you sure you want to delete this product?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger">Delete</button>
                 </form>
+                @endif
 
+                @if ($product->deleted_at)
+                    <a href="{{ route('show-deleted-product') }}" class="btn btn-outline-secondary">Back to List</a>
+                @else
                 <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Back to List</a>
+                @endif
             </div>
         </div>
     </div>

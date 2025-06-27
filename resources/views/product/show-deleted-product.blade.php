@@ -5,15 +5,15 @@
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
-                    <h2 class="mb-2 mb-md-0">📦 Product List</h2>
+                    <h2 class="mb-2 mb-md-0">🗑️ Deleted Products</h2>
                     <div class="d-flex flex-wrap gap-2">
-                        <form class="d-flex" role="search" action="{{ route('products.index') }}" method="GET">
-                            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" />
+                        <form class="d-flex" role="search" action="{{ route('show-deleted-product') }}" method="GET">
+                            <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                                aria-label="Search" />
                             <button class="btn btn-light" type="submit">Search</button>
                         </form>
-                        <a href="/show-deleted-product" class="btn btn-warning px-2 py-1"> 🗑️Trash
+                        <a href="/products" class="btn btn-success"> Product List
                         </a>
-                        <a href="/create-product" class="btn btn-success">➕ Add Product</a>
                     </div>
                 </div>
             </div>
@@ -39,8 +39,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($products->count())
-                            @foreach ($products as $product)
+                        @if ($deletedProducts->count())
+                            @foreach ($deletedProducts as $product)
                                 <tr>
                                     <th class="text-center">{{ $loop->iteration }}</th>
                                     <td class="text-center fw-semibold">{{ $product->name }}</td>
@@ -59,15 +59,15 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('show-product', $product->id) }}" class="btn btn-info btn-sm">👁️
                                                 Show</a>
-                                            <a href="{{ route('edit-product', $product->id) }}" class="btn btn-primary btn-sm">✏️
-                                                Edit</a>
-                                            <form action="{{ route('delete-product', $product->id) }}" method="POST"
+                                            <a href="{{ route('restore-product', $product->id) }}" class="btn btn-primary btn-sm">✏️
+                                                Restore</a>
+                                            <form action="{{ route('destroy-product', $product->id) }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Are you sure you want to delete this product?')">🗑️
-                                                    Delete</button>
+                                                    onclick="return confirm('Are you sure you want to delete this product permanently?')">🗑️
+                                                    Destroy Product</button>
                                             </form>
                                         </div>
                                     </td>
@@ -80,7 +80,7 @@
                         @endif
                     </tbody>
                 </table>
-                {{ $products->links() }}
+                {{ $deletedProducts->links() }}
             </div>
         </div>
     </div>

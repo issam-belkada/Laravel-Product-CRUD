@@ -20,3 +20,12 @@ Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class,
 Route::put('/update-product/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('update-product');
 
 Route::delete('/delete-product/{id}', [App\Http\Controllers\ProductController::class, 'delete'])->name('delete-product');
+
+
+Route::get('show-deleted-product', [App\Http\Controllers\ProductController::class, 'showDeletedProducts'])->name('show-deleted-product');
+
+
+Route::get('/restore-product/{id}', [App\Http\Controllers\ProductController::class, 'restore'])->name('restore-product');
+
+
+Route::delete('/destroy-product/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('destroy-product');
