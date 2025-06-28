@@ -11,7 +11,7 @@
                                 aria-label="Search" />
                             <button class="btn btn-light" type="submit">Search</button>
                         </form>
-                        <a href="/show-deleted-category" class="btn btn-warning px-2 py-1"> 🗑️Trash
+                        <a href="/show-deleted-categories" class="btn btn-warning px-2 py-1"> 🗑️Trash
                         </a>
                         <a href="/create-category" class="btn btn-success">➕ Add Category</a>
                     </div>
@@ -40,23 +40,26 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <th class="text-center">{{ $loop->iteration }}</th>
-                                    <td class="text-center fw-semibold">{{ $$categoryt->name }}</td>
+                                    <td class="text-center fw-semibold">{{ $category->name }}</td>
 
                                     <td class="text-center">
-                                        <span class="badge {{ $$category->status == 'active' ? 'bg-success' : 'bg-secondary' }}">
+                                        <span class="badge {{ $category->status == 'active' ? 'bg-success' : 'bg-secondary' }}">
                                             {{ ucfirst($category->status) }}
                                         </span>
                                     </td>
 
-                                    <td class="text-center">{{ $category->created_at->format('d-m-Y') }}</td>
+                                    <td class="text-center">
+                                        {{ $category->created_at ? $category->created_at->format('d-m-Y') : 'N/A' }}
+                                    </td>
+
 
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('show-category-products', $category->id) }}"
                                                 class="btn btn-info btn-sm">👁️ Products </a>
-                                            <a href="{{ route('edit-category', $product->id) }}" class="btn btn-primary btn-sm">✏️
+                                            <a href="{{ route('edit-category', $category->id) }}" class="btn btn-primary btn-sm">✏️
                                                 Edit</a>
-                                            <form action="{{ route('delete-category', $product->id) }}" method="POST"
+                                            <form action="{{ route('delete-category', $category->id) }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -70,12 +73,12 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="8" class="text-center text-muted py-4">No products found!</td>
+                                <td colspan="8" class="text-center text-muted py-4">No categories founded!</td>
                             </tr>
                         @endif
                     </tbody>
                 </table>
-                {{ $products->links() }}
+                {{ $categories->links() }}
             </div>
         </div>
     </div>

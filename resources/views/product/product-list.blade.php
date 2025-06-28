@@ -75,7 +75,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="8" class="text-center text-muted py-4">No products found!</td>
+                                <td colspan="8" class="text-center text-muted py-4">No products founded!</td>
                             </tr>
                         @endif
                     </tbody>

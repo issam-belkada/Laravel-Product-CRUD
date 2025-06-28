@@ -26,7 +26,7 @@
                     <div class="col-md-8">
                         <p class="mb-2"><strong>Category:</strong> {{ $product->category->name }}</p>
                         <p class="mb-2"><strong>Quantity:</strong> {{ $product->Quantity }}</p>
-                        <p class="mb-2"><strong>Price:</strong> {{ number_format($product->price, 2) }} DA</p>
+                        <p class="mb-2"><strong>Price:</strong> {{ $product->price }}DA</p>
                         <p class="mb-0"><strong>Description:</strong>
                             {{ $product->description ?? 'No description provided' }}</p>
                     </div>

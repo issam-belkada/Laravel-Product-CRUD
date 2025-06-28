@@ -98,7 +98,7 @@
                 </div>
 
                 <!-- Buttons -->
-                @if ($product->deleted_at)
+                @if (optional($product)->deleted_at)
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('show-deleted-product') }}" class="btn btn-outline-secondary">Cancel</a>
                         <button type="submit" class="btn btn-success">
