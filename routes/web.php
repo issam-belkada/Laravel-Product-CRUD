@@ -29,3 +29,18 @@ Route::get('/restore-product/{id}', [App\Http\Controllers\ProductController::cla
 
 
 Route::delete('/destroy-product/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('destroy-product');
+
+
+
+Route::get('/categorys', [App\Http\Controllers\CategorysController::class, 'index'])->name('categories.index');
+
+Route::get('/show-category-products/{id}', [App\Http\Controllers\CategorysController::class, 'showCategoryProducts'])->name('show-category-products');
+
+Route::get('/create-category', [App\Http\Controllers\CategorysController::class, 'create'])->name('categories.create');
+Route::post('/store-category', [App\Http\Controllers\CategorysController::class, 'store'])->name('store-category');
+Route::get('/edit-category/{id}', [App\Http\Controllers\CategorysController::class, 'edit'])->name('edit-category');
+Route::put('/update-category/{id}', [App\Http\Controllers\CategorysController::class, 'update'])->name('update-category');
+Route::delete('/delete-category/{id}', [App\Http\Controllers\CategorysController::class, 'delete'])->name('delete-category');
+Route::get('/show-deleted-category', [App\Http\Controllers\CategorysController::class, 'showDeletedCategories'])->name('show-deleted-category');
+Route::get('/restore-category/{id}', [App\Http\Controllers\CategorysController::class, 'restore'])->name('restore-category');
+Route::delete('/destroy-category/{id}', [App\Http\Controllers\CategorysController::class, 'destroy'])->name('destroy-category');
