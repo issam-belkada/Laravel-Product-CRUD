@@ -98,21 +98,13 @@
                 </div>
 
                 <!-- Buttons -->
-                @if (optional($product)->deleted_at)
+                
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('show-deleted-product') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Cancel</a>
                         <button type="submit" class="btn btn-success">
                             {{ $buttonText ?? 'Save' }}
                         </button>
                     </div>
-                @else
-                <div class="d-flex justify-content-between">
-                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-success">
-                        {{ $buttonText ?? 'Save' }}
-                    </button>
-                </div>
-                @endif
             </form>
         </div>
     </div>

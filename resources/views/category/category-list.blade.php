@@ -25,59 +25,61 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Category</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Date de creation</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+
                         @if ($categories->count())
-                            @foreach ($categories as $category)
-                                <tr>
-                                    <th class="text-center">{{ $loop->iteration }}</th>
-                                    <td class="text-center fw-semibold">{{ $category->name }}</td>
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Creating date</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead> <tbody>
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <th class="text-center">{{ $loop->iteration }}</th>
+                                        <td class="text-center fw-semibold">{{ $category->name }}</td>
 
-                                    <td class="text-center">
-                                        <span class="badge {{ $category->status == 'active' ? 'bg-success' : 'bg-secondary' }}">
-                                            {{ ucfirst($category->status) }}
-                                        </span>
-                                    </td>
+                                        <td class="text-center">
+                                            <span class="badge {{ $category->status == 'active' ? 'bg-success' : 'bg-secondary' }}">
+                                                {{ ucfirst($category->status) }}
+                                            </span>
+                                        </td>
 
-                                    <td class="text-center">
-                                        {{ $category->created_at ? $category->created_at->format('d-m-Y') : 'N/A' }}
-                                    </td>
+                                        <td class="text-center">
+                                            {{ $category->created_at ? $category->created_at->format('d-m-Y') : 'N/A' }}
+                                        </td>
 
 
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('show-category-products', $category->id) }}"
-                                                class="btn btn-info btn-sm">👁️ Products </a>
-                                            <a href="{{ route('edit-category', $category->id) }}" class="btn btn-primary btn-sm">✏️
-                                                Edit</a>
-                                            <form action="{{ route('delete-category', $category->id) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Are you sure you want to delete this product?')">🗑️
-                                                    Delete</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('show-category-products', $category->id) }}"
+                                                    class="btn btn-info btn-sm">👁️ Products </a>
+                                                <a href="{{ route('edit-category', $category->id) }}" class="btn btn-primary btn-sm">✏️
+                                                    Edit</a>
+                                                <form action="{{ route('delete-category', $category->id) }}" method="POST"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('Are you sure you want to delete this product?')">🗑️
+                                                        Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
                         @else
-                            <tr>
-                                <td colspan="8" class="text-center text-muted py-4">No categories founded!</td>
-                            </tr>
+                            <table class="table align-middle mb-0">
+                                    <tr>
+                                        <td colspan="8" class="text-center text-muted py-4">No categories founded!</td>
+                                    </tr>
+                            </table>
                         @endif
-                    </tbody>
-                </table>
                 {{ $categories->links() }}
             </div>
         </div>

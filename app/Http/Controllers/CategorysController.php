@@ -88,7 +88,7 @@ class CategorysController extends Controller
 
     public function destroy($id)
     {
-        $category = Category::withTrashed()->findOrFail($id);
+        $category = Category::onlyTrashed()->findOrFail($id);
         $category->forceDelete();
 
         return redirect()->route('show-deleted-categories')->with('success','category permanently deleted successfully.');
@@ -100,4 +100,14 @@ class CategorysController extends Controller
         $category->restore();
         return redirect()->route('show-deleted-categories')->with('success', 'Category restored successfully.');
     }
+
+
+    public function showCategoryProducts($id)
+    {
+        $category = Category::findOrFail($id);
+        $query = $category->products();
+        $products = $query->latest()->paginate(7);
+        return view('category.category-products', compact(['category', 'products']));
+    }
+        
 }
