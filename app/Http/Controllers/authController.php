@@ -21,7 +21,8 @@ class authcontroller extends Controller
             'password' => 'required|min:6',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, true)) {
+                
             return redirect()->route('products.index')->with('success', 'Login successful');
             }
 
@@ -49,8 +50,15 @@ class authcontroller extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect()->route('products.index')->with('success', 'Signup successful');
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('show-login')->with('success', 'Logged out successfully');
     }
 }
 

@@ -1,46 +1,108 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel CRUD Products</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link href="resources/css/products-list.css" rel="stylesheet">
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #0d6efd !important;
+        }
+
+        .btn {
+            transition: all 0.3s ease-in-out;
+        }
+
+        footer {
+            background-color: #f1f1f1;
+            padding: 20px 0;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
             <a class="navbar-brand" href="#">Laravel CRUD</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/categories">Categories</a>
-                    </li>
-                </ul>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                @auth
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('products') ? 'active' : '' }}" href="/products">📦
+                                Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('categories') ? 'active' : '' }}" href="/categories">🗂️
+                                Categories</a>
+                        </li>
+                    </ul>
+                @endauth
+
+                <div class="d-flex align-items-center">
+                    @auth
+                        <span class="me-3 text-success fw-semibold">
+                            👋 {{ Auth::user()->name }}
+                        </span>
+                        <form method="GET" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="btn btn-outline-danger btn-sm rounded-pill">Logout</button>
+                        </form>
+                    @else
+                        <a href="{{ route('show-login') }}" class="btn btn-outline-primary btn-sm me-2 rounded-pill">Sign
+                            In</a>
+                        <a href="{{ route('show-signup') }}" class="btn btn-primary btn-sm rounded-pill">Sign Up</a>
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>
-    @yield('content')
 
-    <footer class="bg-light text-center text-lg-start mt-5">
-        <div class="text-center p-3">
-            © 2023 Laravel CRUD Products
+    <main class="container my-5">
+        @yield('content')
+    </main>
+
+    <footer class="text-center text-muted">
+        <div class="container">
+            <p class="mb-0">© {{ date('Y') }} Laravel CRUD Products. All rights reserved.</p>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-            crossorigin="anonymous"></script>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
