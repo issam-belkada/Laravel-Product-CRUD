@@ -44,3 +44,16 @@ Route::delete('/delete-category/{id}', [App\Http\Controllers\CategorysController
 Route::get('/show-deleted-categories', [App\Http\Controllers\CategorysController::class, 'showDeletedCategories'])->name('show-deleted-categories');
 Route::get('/restore-category/{id}', [App\Http\Controllers\CategorysController::class, 'restore'])->name('restore-category');
 Route::delete('/destroy-category/{id}', [App\Http\Controllers\CategorysController::class, 'destroy'])->name('destroy-category');
+
+
+
+
+Route::get('/login', [App\Http\Controllers\authController::class, 'showLoginForm'])->name('show-login');
+
+Route::post('/login', [App\Http\Controllers\authController::class, 'login'])->name('login');
+
+
+Route::get('/signup', [App\Http\Controllers\authController::class, 'showSignupForm'])->name('show-signup');
+
+
+Route::post('/signup', [App\Http\Controllers\authController::class, 'signup'])->name('signup');
