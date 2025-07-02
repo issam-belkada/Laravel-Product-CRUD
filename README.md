@@ -24,15 +24,6 @@ ElectroStore is a modern and responsive inventory management system built with *
 - **MySQL**
 - **FontAwesome**
 
----
-
-## 📸 Screenshots
-
-| Login Page | Product List | Delete Modal |
-|------------|--------------|--------------|
-| ![login](public/screenshots/login.png) | ![products](public/screenshots/products.png) | ![modal](public/screenshots/delete-modal.png) |
-
-> *(Add real screenshots in `/public/screenshots` and update paths above)*
 
 ---
 
